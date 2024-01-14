@@ -157,10 +157,29 @@ class APIServices {
     }
   }
 
+  Future<List<Movie>> getSimilarMovies(
+      {required int pageNumber, required Movie movie}) async {
+    final response = await getData('movie/${movie.id}/similar', {
+      'page': pageNumber,
+    });
+
+    if (response.statusCode == 200) {
+      List<dynamic> results = response.data['results'];
+      List<Movie> similarMovies = [];
+      for (Map<String, dynamic> jsonElement in results) {
+        Movie amovie = Movie.fromJson(jsonElement);
+        similarMovies.add(amovie);
+      }
+      return similarMovies;
+    } else {
+      throw response;
+    }
+  }
+
   Future<Movie> getMovie({required Movie movie}) async {
     final response = await getData('movie/${movie.id}', {
       'include_image_language': 'null',
-      'append_to_response': 'videos,images,credits,'
+      'append_to_response': 'videos,images,credits,similar'
     });
 
     if (response.statusCode == 200) {
@@ -195,7 +214,14 @@ class APIServices {
         castingInfo.add(person);
       }
 
-      // getting the release date info in one API call
+      // getting similar movie associed with
+      List<dynamic> similar = data['similar']['results'];
+      List<Movie> similarList = [];
+
+      for (Map<String, dynamic> jsonElement in similar) {
+        Movie movie = Movie.fromJson(jsonElement);
+        similarList.add(movie);
+      }
 
       return movie.copyWith(
         casting: castingInfo,
@@ -204,6 +230,7 @@ class APIServices {
         imagesURL: imageURLs,
         releaseDate: data['release_date'],
         vote: data['vote_average'],
+        similar: similarList,
       );
     } else {
       throw response;

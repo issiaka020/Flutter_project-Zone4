@@ -8,8 +8,10 @@ class MovieBroadcast extends StatefulWidget {
   const MovieBroadcast({
     super.key,
     required this.movie,
+    this.trailer = false,
   });
   final Movie movie;
+  final bool trailer;
 
   @override
   State<MovieBroadcast> createState() => _MovieBroadcastState();
@@ -33,44 +35,46 @@ class _MovieBroadcastState extends State<MovieBroadcast> {
                 )
               : MyVideoPlayer(movieId: widget.movie.videoKey!.first),
         ),
-        Positioned(
-          right: -5,
-          top: -7,
-          child: Row(
-            children: [
-              Container(
-                width: 30,
-                height: 30,
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(170),
-                    color: kPrimaryColor1),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.airplay_sharp,
-                      size: 12,
-                    )),
+        widget.trailer == true
+            ? Container()
+            : Positioned(
+                right: -5,
+                top: -7,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 30,
+                      height: 30,
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(170),
+                          color: kPrimaryColor1),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.airplay_sharp,
+                            size: 12,
+                          )),
+                    ),
+                    Container(
+                      width: 30,
+                      height: 30,
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(170),
+                          color: kPrimaryColor1),
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.close,
+                            size: 12,
+                          )),
+                    ),
+                  ],
+                ),
               ),
-              Container(
-                width: 30,
-                height: 30,
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(170),
-                    color: kPrimaryColor1),
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.close,
-                      size: 12,
-                    )),
-              ),
-            ],
-          ),
-        ),
       ],
     );
   }

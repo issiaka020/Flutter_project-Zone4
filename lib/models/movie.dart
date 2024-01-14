@@ -14,6 +14,7 @@ class Movie {
   final List<String>? videoKey;
   final List<Person>? casting;
   final List<String>? imagesURL;
+  final List<Movie>? similar;
 
   /*these variable at the beginning is empty 
    we initialize them as nullable then after once 
@@ -31,6 +32,7 @@ class Movie {
     this.videoKey,
     this.casting,
     this.imagesURL,
+    this.similar,
   });
 
   Movie copyWith({
@@ -44,6 +46,7 @@ class Movie {
     List<String>? videoKey,
     List<Person>? casting,
     List<String>? imagesURL,
+    List<Movie>? similar,
   }) {
     return Movie(
       id: id ?? this.id,
@@ -56,6 +59,7 @@ class Movie {
       videoKey: videoKey ?? this.videoKey,
       casting: casting ?? this.casting,
       imagesURL: imagesURL ?? this.imagesURL,
+      similar: similar ?? this.similar,
     );
   }
 

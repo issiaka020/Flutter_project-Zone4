@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:zone4/models/movie.dart';
 import 'package:zone4/repositories/data_repository.dart';
+
 import 'package:zone4/ui/widgets/action_button.dart';
 import 'package:zone4/ui/widgets/casting_card.dart';
 import 'package:zone4/ui/widgets/casting_info.dart';
@@ -13,6 +14,7 @@ import 'package:zone4/ui/widgets/galery_card.dart';
 import 'package:zone4/ui/widgets/movie_broadcast.dart';
 import 'package:zone4/ui/widgets/movie_info.dart';
 import 'package:zone4/ui/widgets/no_image_card.dart';
+import 'package:zone4/ui/widgets/similar_tab.dart';
 import 'package:zone4/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +31,7 @@ class MovieDetailsPage extends StatefulWidget {
 
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
   Movie? newMovie;
+  List<Movie>? first6SimilarMovies;
   @override
   void initState() {
     super.initState();
@@ -41,6 +44,10 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
     setState(() {
       newMovie = amovie;
+      first6SimilarMovies = newMovie!.similar!
+          .where((element) => element.posterPath != null)
+          .take(6)
+          .toList();
     });
   }
 
@@ -79,6 +86,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         GoogleFonts.poppins(color: Colors.white, fontSize: 15),
                   ),
                   const SizedBox(height: 10),
+                  SimilarTab(movie: first6SimilarMovies, newmovie: newMovie),
+                  const SizedBox(height: 10),
                   Text(
                     'Casting',
                     style: GoogleFonts.poppins(
@@ -86,6 +95,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
+                  const SizedBox(height: 5),
                   SizedBox(
                     height: 380,
                     child: CarouselSlider.builder(

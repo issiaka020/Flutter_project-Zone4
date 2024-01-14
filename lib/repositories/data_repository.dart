@@ -12,6 +12,7 @@ class DataRepository with ChangeNotifier {
   final List<Movie> _animationMovieList = [];
   final List<Movie> _horrorMovieList = [];
   final List<Movie> _thrillerMovieList = [];
+
   int _popularMoviePageNumber = 1;
   int _nowPlayingPageNumber = 1;
   int _upcomingPageNumber = 1;
