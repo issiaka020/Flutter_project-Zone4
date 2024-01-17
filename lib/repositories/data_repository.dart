@@ -12,6 +12,7 @@ class DataRepository with ChangeNotifier {
   final List<Movie> _animationMovieList = [];
   final List<Movie> _horrorMovieList = [];
   final List<Movie> _thrillerMovieList = [];
+  final List<Movie> _allMovieList = [];
 
   int _popularMoviePageNumber = 1;
   int _nowPlayingPageNumber = 1;
@@ -28,6 +29,7 @@ class DataRepository with ChangeNotifier {
   List<Movie> get animationMoviesList => _animationMovieList;
   List<Movie> get horrorMoviesList => _horrorMovieList;
   List<Movie> get thrillerMoviesList => _thrillerMovieList;
+  List<Movie> get allMovieList => _allMovieList;
 
   Future<void> getPopularMovies() async {
     try {
@@ -35,6 +37,8 @@ class DataRepository with ChangeNotifier {
           pageNumber: _popularMoviePageNumber);
       _popularMovieList.addAll(movies);
       _popularMoviePageNumber++;
+
+      _allMovieList.addAll(movies);
       notifyListeners();
     } on Response catch (response) {
       debugPrint('Error :  ${response.statusCode}');
@@ -47,6 +51,7 @@ class DataRepository with ChangeNotifier {
       List<Movie> movies = await apiService.getNowPlayingMovies(
           pageNumber: _nowPlayingPageNumber);
       _nowPlayingMovieList.addAll(movies);
+      _allMovieList.addAll(movies);
       _nowPlayingPageNumber++;
       notifyListeners();
     } on Response catch (response) {
@@ -60,6 +65,7 @@ class DataRepository with ChangeNotifier {
       List<Movie> movies =
           await apiService.getUpcomingMovies(pageNumber: _upcomingPageNumber);
       _upcomingMovieList.addAll(movies);
+      _allMovieList.addAll(movies);
       _upcomingPageNumber++;
       notifyListeners();
     } on Response catch (response) {
@@ -73,6 +79,7 @@ class DataRepository with ChangeNotifier {
       List<Movie> movies =
           await apiService.getTopRatedMovies(pageNumber: _topRatedPageNumber);
       _topRatedMovieList.addAll(movies);
+      _allMovieList.addAll(movies);
       _topRatedPageNumber++;
       notifyListeners();
     } on Response catch (response) {
@@ -86,6 +93,7 @@ class DataRepository with ChangeNotifier {
       List<Movie> movies =
           await apiService.getAnimationMovies(pageNumber: _animationPageNumber);
       _animationMovieList.addAll(movies);
+      _allMovieList.addAll(movies);
       _animationPageNumber++;
       notifyListeners();
     } on Response catch (response) {
@@ -99,6 +107,7 @@ class DataRepository with ChangeNotifier {
       List<Movie> movies =
           await apiService.getHorrorMovies(pageNumber: _horrorPageNumber);
       _horrorMovieList.addAll(movies);
+      _allMovieList.addAll(movies);
       _horrorPageNumber++;
       notifyListeners();
     } on Response catch (response) {
@@ -112,6 +121,7 @@ class DataRepository with ChangeNotifier {
       List<Movie> movies =
           await apiService.getThrillerMovies(pageNumber: _thrillerPageNumber);
       _thrillerMovieList.addAll(movies);
+      _allMovieList.addAll(movies);
       _thrillerPageNumber++;
       notifyListeners();
     } on Response catch (response) {

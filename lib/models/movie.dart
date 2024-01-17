@@ -15,6 +15,7 @@ class Movie {
   final List<Person>? casting;
   final List<String>? imagesURL;
   final List<Movie>? similar;
+  final List<Map<String, dynamic>>? actor;
 
   /*these variable at the beginning is empty 
    we initialize them as nullable then after once 
@@ -33,6 +34,7 @@ class Movie {
     this.casting,
     this.imagesURL,
     this.similar,
+    this.actor,
   });
 
   Movie copyWith({
@@ -47,6 +49,7 @@ class Movie {
     List<Person>? casting,
     List<String>? imagesURL,
     List<Movie>? similar,
+    List<Map<String, dynamic>>? actor,
   }) {
     return Movie(
       id: id ?? this.id,
@@ -60,6 +63,7 @@ class Movie {
       casting: casting ?? this.casting,
       imagesURL: imagesURL ?? this.imagesURL,
       similar: similar ?? this.similar,
+      actor: actor ?? this.actor,
     );
   }
 

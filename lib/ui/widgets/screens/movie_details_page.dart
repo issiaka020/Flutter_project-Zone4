@@ -112,6 +112,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                 characterName:
                                     newMovie!.casting![index].characterName,
                                 displayImage: CastingCard(
+                                  actorDetails:
+                                      newMovie!.casting![index].actor![index],
                                   person: newMovie!.casting![index],
                                 ));
                       },

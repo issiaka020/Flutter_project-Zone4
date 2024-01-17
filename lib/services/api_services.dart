@@ -209,9 +209,22 @@ class APIServices {
       // getting the casting info in one API call
       List<dynamic> cast = response.data['credits']['cast'];
       List<Person> castingInfo = [];
+      List<Map<String, dynamic>> actorinfo = [];
       for (var element in cast) {
         Person person = Person.fromjson(element);
-        castingInfo.add(person);
+
+        // getting the actor id
+
+        int actorId = person.id;
+
+        final responseactor = await getData('person/$actorId', {});
+
+        Map<String, dynamic> resultActor = responseactor.data;
+        if (responseactor.statusCode == 200) {
+          actorinfo.add(resultActor);
+          person = person.copyWith(actor: actorinfo);
+          castingInfo.add(person);
+        }
       }
 
       // getting similar movie associed with

@@ -4,6 +4,7 @@ import 'package:zone4/repositories/data_repository.dart';
 import 'package:zone4/ui/widgets/movie_card.dart';
 import 'package:zone4/ui/widgets/movie_category.dart';
 import 'package:zone4/ui/widgets/movie_category_caroussel.dart';
+import 'package:zone4/ui/widgets/screens/search_screen.dart';
 
 import 'package:zone4/utils/constant.dart';
 
@@ -34,11 +35,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final dataProvider = Provider.of<DataRepository>(context);
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         leading: Image.asset('assets/images/Z.png'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                debugPrint(dataProvider.allMovieList[0].name);
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return SearchScreen(
+                      movies: dataProvider.allMovieList,
+                    );
+                  },
+                ));
+              },
+              icon: Icon(
+                Icons.search,
+                size: 50,
+                color: kPrimaryColor1,
+              )),
+        ],
       ),
       body: ListView(
         children: [
